@@ -3,6 +3,6 @@ import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 export const rooms = pgTable('rooms', {
   id: uuid().primaryKey().defaultRandom(), // o banco de dados gerará esse id aleatoriamente
   name: text().notNull(),
-  descripton: text(),
+  description: text(),
   createAt: timestamp().defaultNow().notNull(),
 });

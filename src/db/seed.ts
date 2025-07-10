@@ -4,10 +4,10 @@ import { schema } from './schema/index.ts'
 
 await reset(db, schema)
 
-await seed(db, schema).refine(f => {
+await seed(db, schema).refine((f) => {
     return {
         rooms: {
-            count: 20,
+            count: 5,
             columns: {
                 name: f.companyName(),
                 descripton: f.loremIpsum(),
@@ -21,4 +21,5 @@ await seed(db, schema).refine(f => {
 
 await sql.end()
 
+// biome-ignore lint/suspicious/noConsole: only used in dev
 console.log('Database seeded')

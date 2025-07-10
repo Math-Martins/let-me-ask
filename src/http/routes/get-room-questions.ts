@@ -1,10 +1,8 @@
-import { desc, eq } from 'drizzle-orm';
-import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod';
-import { z } from 'zod/v4';
-import { db } from '../../db/connection.ts';
-import { schema } from '../../db/schema/index.ts';
-import { questions } from '../../db/schema/questions.ts';
-import { create } from 'domain';
+import { desc, eq } from 'drizzle-orm'
+import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod'
+import { z } from 'zod/v4'
+import { db } from '../../db/connection.ts'
+import { schema } from '../../db/schema/index.ts'
 
 export const getRoomQuestions: FastifyPluginCallbackZod = (app) => {
   app.get(
@@ -17,20 +15,20 @@ export const getRoomQuestions: FastifyPluginCallbackZod = (app) => {
       },
     },
     async (request) => {
-      const { roomId } = request.params;
+      const { roomId } = request.params
 
       const result = await db
         .select({
-            id: schema.questions.id,
-            question: schema.questions.question,
-            answer: schema.questions.answer,
-            createAt: schema.questions.createAt,
+          id: schema.questions.id,
+          question: schema.questions.question,
+          answer: schema.questions.answer,
+          createdAt: schema.questions.createAt,
         })
         .from(schema.questions)
         .where(eq(schema.questions.roomId, roomId))
         .orderBy(desc(schema.questions.createAt))
 
-        return result
+      return result
     }
-  );
-};
+  )
+}
